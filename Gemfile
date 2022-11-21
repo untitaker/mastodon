@@ -155,3 +155,6 @@ gem 'concurrent-ruby', require: false
 gem 'connection_pool', require: false
 gem 'xorcist', '~> 1.1'
 gem 'cocoon', '~> 1.2'
+
+gem "sentry-ruby", "~> 5.6"
+gem "sentry-rails", "~> 5.6"
