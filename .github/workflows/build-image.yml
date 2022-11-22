@@ -7,10 +7,6 @@ on:
       - 'sentry'
     tags:
       - '*'
-  pull_request:
-    paths:
-      - .github/workflows/build-image.yml
-      - Dockerfile
 
 permissions:
   packages: write
