@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'sentry'
     tags:
       - '*'
   pull_request:
