@@ -63,7 +63,7 @@ class ActivityPub::ProcessCollectionService < BaseService
 
   def process_item(item)
     transaction = Sentry.get_current_scope.get_transaction
-    transaction.with_child_span(op: :process_item, description: item.dig('object', 'type')) do
+    transaction.with_child_span(op: :process_item, description: "") do
       activity = ActivityPub::Activity.factory(item, @account, **@options)
       activity&.perform
     end
