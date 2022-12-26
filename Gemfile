@@ -166,3 +166,4 @@ gem "sentry-rails", "~> 5.6"
 gem "sentry-sidekiq", "~> 5.6"
 
 gem 'ruby-prof'
+gem 'rbtrace'
