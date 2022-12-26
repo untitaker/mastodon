@@ -139,7 +139,6 @@ group :development do
   gem 'bullet', '~> 7.0'
   gem 'letter_opener', '~> 1.8'
   gem 'letter_opener_web', '~> 2.0'
-  gem 'memory_profiler'
   gem 'brakeman', '~> 5.4', require: false
   gem 'bundler-audit', '~> 0.9', require: false
 
@@ -167,3 +166,4 @@ gem "sentry-sidekiq", "~> 5.6"
 
 gem 'ruby-prof'
 gem 'rbtrace'
+gem 'memory_profiler'
