@@ -161,8 +161,9 @@ gem 'cocoon', '~> 1.2'
 
 gem "sentry-ruby", "~> 5.6"
 gem "sentry-rails", "~> 5.6"
-
 gem "sentry-sidekiq", "~> 5.6"
+
+gem "ddtrace", require: "ddtrace/auto_instrument"
 
 gem 'ruby-prof'
 gem 'rbtrace'
