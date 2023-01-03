@@ -62,7 +62,7 @@ class ActivityPub::ProcessCollectionService < BaseService
   end
 
   def process_item(item)
-    sentry_span(op: :process_item, description: '') do
+    Sentry.with_child_span(op: :process_item, description: '') do
       activity = ActivityPub::Activity.factory(item, @account, **@options)
       activity&.perform
     end
