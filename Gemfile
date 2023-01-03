@@ -152,7 +152,6 @@ end
 
 group :production do
   gem 'lograge', '~> 0.12'
-  gem "ddtrace", require: "ddtrace/auto_instrument"
 end
 
 gem 'concurrent-ruby', require: false
@@ -164,7 +163,7 @@ gem "sentry-ruby", "~> 5.7"
 gem "sentry-rails", "~> 5.7"
 gem "sentry-sidekiq", "~> 5.7"
 
-
+gem 'heapy'
 gem 'ruby-prof'
 gem 'rbtrace'
 gem 'memory_profiler'
