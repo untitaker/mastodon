@@ -4,7 +4,7 @@ class StatusRelationshipsPresenter
   attr_reader :reblogs_map, :favourites_map, :mutes_map, :pins_map,
               :bookmarks_map, :filters_map
 
-  def initialize(statuses, current_account_id = nil, **options)
+  def initialize(statuses, current_account_id = nil, hidden_statuses: nil, **options)
     if current_account_id.nil?
       @reblogs_map    = {}
       @favourites_map = {}
@@ -24,6 +24,7 @@ class StatusRelationshipsPresenter
       @bookmarks_map   = Status.bookmarks_map(status_ids, current_account_id).merge(options[:bookmarks_map] || {})
       @mutes_map       = Status.mutes_map(conversation_ids, current_account_id).merge(options[:mutes_map] || {})
       @pins_map        = Status.pins_map(pinnable_status_ids, current_account_id).merge(options[:pins_map] || {})
+      @hidden_statuses = hidden_statuses || Set.new
     end
   end
 
@@ -34,6 +35,16 @@ class StatusRelationshipsPresenter
 
     @filters_map = statuses.each_with_object({}) do |status, h|
       filter_matches = CustomFilter.apply_cached_filters(active_filters, status)
+
+      if @hidden_statuses.include? status.id
+        # XXX: hack
+        filter = CustomFilter.new(
+          account_id: account_id,
+          action: "warn",
+          phrase: "Hidden boost",
+        )
+        filter_matches.push filter
+      end
 
       unless filter_matches.empty?
         h[status.id] = filter_matches

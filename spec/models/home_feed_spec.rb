@@ -22,7 +22,7 @@ RSpec.describe HomeFeed, type: :model do
       end
 
       it 'gets statuses with ids in the range from redis' do
-        results = subject.get(3)
+        results, _hidden = subject.get(3)
 
         expect(results.map(&:id)).to eq [3, 2]
         expect(results.first.attributes.keys).to eq %w(id updated_at)
@@ -35,7 +35,7 @@ RSpec.describe HomeFeed, type: :model do
       end
 
       it 'returns nothing' do
-        results = subject.get(3)
+        results, _hidden = subject.get(3)
 
         expect(results.map(&:id)).to eq []
       end
