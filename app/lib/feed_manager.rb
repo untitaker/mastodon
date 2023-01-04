@@ -289,7 +289,6 @@ class FeedManager
       ids.each do |feed_id|
         redis.del(key(type, feed_id))
         redis.del(key(type, feed_id, 'viral_reblogs'))
-        redis.del(key(type, feed_id, 'hidden_statuses'))
         reblog_key = key(type, feed_id, 'reblogs')
         # We collect a future for this: we don't block while getting
         # it, but we can iterate over it later.
@@ -319,7 +318,6 @@ class FeedManager
   def trim(type, timeline_id)
     timeline_key = key(type, timeline_id)
     reblog_key   = key(type, timeline_id, 'reblogs')
-    hidden_statuses_key = key(type, timeline_id, 'hidden_statuses')
     viral_reblog_key   = key(type, timeline_id, 'viral_reblogs')
 
     falloff_range = nil
@@ -348,7 +346,6 @@ class FeedManager
       reblogged_ids_to_remove.value.each do |reblogged_id|
         # Remove it from the set of reblogs we're tracking *first* to avoid races.
         redis.zrem(reblog_key, reblogged_id)
-        redis.zrem(hidden_statuses_key, reblogged_id)
         # Just drop any set we might have created to track additional reblogs.
         # This means that if this reblog is deleted, we won't automatically insert
         # another reblog, but also that any new reblog can be inserted into the
@@ -489,7 +486,7 @@ class FeedManager
         is_not_viral = redis.zadd(viral_reblog_key, status.id, status.reblog_of_id)
       end
 
-      return hidden_status(timeline_type, account_id, status) if !rank.value.nil? && rank.value < FeedManager::REBLOG_FALLOFF
+      return false if !rank.value.nil? && rank.value < FeedManager::REBLOG_FALLOFF
 
       unless timeline_does_not_have_recent_reblog.value
         # Another reblog of the same status was already in the
@@ -497,33 +494,22 @@ class FeedManager
         # is an "extra" reblog, by storing it in reblog_set_key.
         reblog_set_key = key(timeline_type, account_id, "reblogs:#{status.reblog_of_id}")
         redis.sadd(reblog_set_key, status.id)
-        return hidden_status(timeline_type, account_id, status)
+        return false
       end
 
       unless is_not_viral.value
-        return hidden_status(timeline_type, account_id, status)
+        return false
       end
     else
       # A reblog may reach earlier than the original status because of the
       # delay of the worker delivering the original status, the late addition
       # by merging timelines, and other reasons.
       # If such a reblog already exists, just do not re-insert it into the feed.
-      return hidden_status(timeline_type, account_id, status) unless redis.zscore(reblog_key, status.id).nil?
+      return false unless redis.zscore(reblog_key, status.id).nil?
     end
 
     redis.zadd(timeline_key, status.id, status.id)
     true
-  end
-
-  def hidden_status(timeline_type, account_id, status)
-    timeline_key = key(timeline_type, account_id)
-    hidden_statuses_key = key(timeline_type, account_id, "hidden_statuses")
-    redis.pipelined do
-      redis.zadd(hidden_statuses_key, status.id, status.id)
-      redis.zadd(timeline_key, status.id, status.id)
-    end
-
-    false
   end
 
   # Removes an individual status from a feed, correctly handling cases
@@ -538,7 +524,6 @@ class FeedManager
   def remove_from_feed(timeline_type, account_id, status, aggregate_reblogs: true)
     timeline_key = key(timeline_type, account_id)
     reblog_key   = key(timeline_type, account_id, 'reblogs')
-    hidden_statuses_key = key(timeline_type, account_id, 'hidden_statuses')
     viral_reblog_key   = key(timeline_type, account_id, 'viral_reblogs')
 
     if status.reblog? && (aggregate_reblogs.nil? || aggregate_reblogs)
@@ -554,7 +539,6 @@ class FeedManager
       redis.pipelined do
         redis.srem(reblog_set_key, status.id)
         redis.zrem(reblog_key, status.reblog_of_id)
-        redis.zrem(hidden_statuses_key, status.reblog_of_id)
         redis.zrem(viral_reblog_key, status.reblog_of_id)
         # 3. Re-insert another reblog or original into the feed if one
         # remains in the set. We could pick a random element, but this

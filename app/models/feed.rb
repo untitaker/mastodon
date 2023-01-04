@@ -21,36 +21,17 @@ class Feed
 
   def from_redis(limit, max_id, since_id, min_id)
     max_id = '+inf' if max_id.blank?
-
     if min_id.blank?
       since_id   = '-inf' if since_id.blank?
-      method = :zrevrangebyscore
+      unhydrated = redis.zrevrangebyscore(key, "(#{max_id}", "(#{since_id}", limit: [0, limit], with_scores: true).map(&:first).map(&:to_i)
     else
-      method = :zrangebyscore
+      unhydrated = redis.zrangebyscore(key, "(#{min_id}", "(#{max_id}", limit: [0, limit], with_scores: true).map(&:first).map(&:to_i)
     end
 
-    results = nil
-
-    redis.pipelined do
-      results = [feed_key, hidden_statuses_key].map do |key|
-        redis
-          .method(method)
-          .call(key, "(#{max_id}", "(#{since_id}", limit: [0, limit])
-      end
-    end
-
-    unhydrated, hidden_ids = results.map do |ids|
-      ids.value.map(&:to_i)
-    end
-
-    [Status.where(id: unhydrated).cache_ids, Set.new(hidden_ids)]
+    Status.where(id: unhydrated).cache_ids
   end
 
-  def feed_key
+  def key
     FeedManager.instance.key(@type, @id)
-  end
-
-  def hidden_statuses_key
-    FeedManager.instance.key(@type, @id, "hidden_statuses")
   end
 end

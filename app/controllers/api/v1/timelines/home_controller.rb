@@ -8,9 +8,9 @@ class Api::V1::Timelines::HomeController < Api::BaseController
   def show
     @statuses = load_statuses
 
-    render json: @statuses[0],
+    render json: @statuses,
            each_serializer: REST::StatusSerializer,
-           relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id, hidden_statuses: @statuses[1]),
+           relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id),
            status: account_home_feed.regenerating? ? 206 : 200
   end
 
