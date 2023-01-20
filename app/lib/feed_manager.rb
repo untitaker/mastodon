@@ -495,6 +495,10 @@ class FeedManager
         # is an "extra" reblog, by storing it in reblog_set_key.
         reblog_set_key = key(timeline_type, account_id, "reblogs:#{status.reblog_of_id}")
         redis.sadd(reblog_set_key, status.id)
+        Sentry.with_scope do |scope|
+          scope.set_context("message", status.to_json)
+          Sentry.capture_message("dropped a viral post")
+        end
         return false
       end
 
