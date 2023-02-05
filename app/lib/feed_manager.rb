@@ -7,7 +7,7 @@ class FeedManager
   include Redisable
 
   # Maximum number of items stored in a single feed
-  MAX_ITEMS = 400
+  MAX_ITEMS = 800
 
   # The first REBLOG_FALLOFF items in the timeline will be checked for an
   # existant reblog of the same status when a new reblog is inserted.
