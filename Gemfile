@@ -162,6 +162,8 @@ gem "sentry-ruby", "~> 5.7"
 gem "sentry-rails", "~> 5.7"
 gem "sentry-sidekiq", "~> 5.7"
 
+gem 'ddtrace', require: 'ddtrace/auto_instrument'
+
 gem 'heapy'
 gem 'ruby-prof'
 gem 'rbtrace'
