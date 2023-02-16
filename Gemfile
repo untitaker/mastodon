@@ -166,7 +166,8 @@ gem "sentry-sidekiq", "~> 5.7"
 
 gem 'ddtrace', require: 'ddtrace/auto_instrument'
 
-gem 'heapy'
-gem 'ruby-prof'
-gem 'rbtrace'
-gem 'memory_profiler'
+# Some of those gems are not packaged for ruby 3.2 -- disabled for now
+#gem 'heapy'
+#gem 'ruby-prof'
+#gem 'rbtrace'
+#gem 'memory_profiler'
