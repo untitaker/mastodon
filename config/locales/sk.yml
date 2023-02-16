@@ -117,6 +117,7 @@ sk:
       redownloaded_msg: Úspešne obnovený profil %{username} z pôvodného
       reject: Zamietni
       rejected_msg: Úspešne zamietnutá prihláška %{username}
+      remote_suspension_irreversible: Údaje tohto účtu boli nenávratne zmazané.
       remove_avatar: Vymaž avatar
       remove_header: Vymaž záhlavie
       removed_avatar_msg: Úspešne odstránený obrázok avatara %{username}
@@ -226,6 +227,7 @@ sk:
         destroy_domain_block_html: "%{name} odblokoval/i doménu %{target}"
         destroy_ip_block_html: "%{name} vymazal/a pravidlo pre IP %{target}"
         destroy_status_html: "%{name} zmazal/a príspevok od %{target}"
+        reject_appeal_html: "%{name} zamietol/la námietku moderovacieho rozhodnutia od %{target}"
       deleted_account: zmazaný účet
       empty: Žiadne záznamy nenájdené.
       filter_by_action: Filtruj podľa úkonu
@@ -351,6 +353,7 @@ sk:
       no_file: Nevybraný žiaden súbor
     export_domain_blocks:
       import:
+        existing_relationships_warning: Existujúce vzťahy nasledovania
         title: Nahraj zákazy domén
       new:
         title: Nahraj zákazy domén
@@ -376,6 +379,7 @@ sk:
         policies:
           reject_media: Zamietni médiá
           reject_reports: Zamietni hlásenia
+          silence: Obmedzená
           suspend: Vylúč
         policy: Zásady
         reason: Verejné odôvodnenie
@@ -383,6 +387,7 @@ sk:
       dashboard:
         instance_accounts_dimension: Najsledovanejšie účty
         instance_accounts_measure: uložené účty
+        instance_follows_measure: ich sledovatelia tu
         instance_statuses_measure: uložené príspevky
       delivery:
         all: Všetko
@@ -501,15 +506,22 @@ sk:
       categories:
         administration: Spravovanie
         invites: Pozvánky
+        moderation: Moderácia
       delete: Vymaž
       edit: Uprav postavenie %{name}
+      everyone: Východzie oprávnenia
       privileges:
         administrator: Správca
         delete_user_data: Vymaž užívateľské dáta
         invite_users: Pozvi užívateľov
         manage_announcements: Spravuj oboznámenia
         manage_appeals: Spravuj námietky
+        manage_blocks: Spravuj blokovania
+        manage_federation: Spravuj federáciu
+        manage_reports: Spravuj hlásenia
         manage_roles: Spravuj postavenia
+        manage_rules: Spravuj pravidlá
+        manage_settings: Spravuj nastavenia
         manage_users: Spravuj užívateľov
       title: Postavenia
     rules:
@@ -1046,7 +1058,7 @@ sk:
       one: 'obsahoval nepovolený haštag: %{tags}'
       other: 'obsahoval nepovolené haštagy: %{tags}'
     errors:
-      in_reply_not_found: Príspevok, na ktorý sa snažíš odpovedať, už pravdepodobne neexistuje.
+      in_reply_not_found: Príspevok, na ktorý sa snažíš odpovedať, pravdepodobne neexistuje.
     open_in_web: Otvor v okne na webe
     over_character_limit: limit %{max} znakov bol presiahnutý
     pin_errors:
