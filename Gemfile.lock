@@ -837,7 +837,6 @@ DEPENDENCIES
   fog-core (<= 2.4.0)
   fog-openstack (~> 0.3)
   fuubar (~> 2.5)
-  gitlab-omniauth-openid-connect (~> 0.10.1)
   haml-rails (~> 2.0)
   heapy
   hiredis (~> 0.6)
