@@ -164,7 +164,9 @@ gem "sentry-ruby", "~> 5.7"
 gem "sentry-rails", "~> 5.7"
 gem "sentry-sidekiq", "~> 5.7"
 
-gem 'ddtrace', require: 'ddtrace/auto_instrument'
+group :production do
+  gem 'ddtrace', require: 'ddtrace/auto_instrument'
+end
 
 # Some of those gems are not packaged for ruby 3.2 -- disabled for now
 #gem 'heapy'
