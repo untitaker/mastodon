@@ -355,6 +355,7 @@ class Announcement extends ImmutablePureComponent {
 
 }
 
+export default @injectIntl
 class Announcements extends ImmutablePureComponent {
 
   static propTypes = {
@@ -418,7 +419,7 @@ class Announcements extends ImmutablePureComponent {
         <img className='announcements__mastodon' alt='' draggable='false' src={mascot || elephantUIPlane} />
 
         <div className='announcements__container'>
-          <ReactSwipeableViews animateHeight animateTransitions={!reduceMotion} index={index} onChangeIndex={this.handleChangeIndex}>
+          <ReactSwipeableViews animateHeight={!reduceMotion} adjustHeight={reduceMotion} index={index} onChangeIndex={this.handleChangeIndex}>
             {announcements.map((announcement, idx) => (
               <Announcement
                 key={announcement.get('id')}
@@ -446,5 +447,3 @@ class Announcements extends ImmutablePureComponent {
   }
 
 }
-
-export default injectIntl(Announcements);

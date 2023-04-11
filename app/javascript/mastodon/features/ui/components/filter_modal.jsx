@@ -13,6 +13,8 @@ const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
 });
 
+export default @connect(undefined)
+@injectIntl
 class FilterModal extends ImmutablePureComponent {
 
   static propTypes = {
@@ -130,5 +132,3 @@ class FilterModal extends ImmutablePureComponent {
   }
 
 }
-
-export default connect(injectIntl(FilterModal));

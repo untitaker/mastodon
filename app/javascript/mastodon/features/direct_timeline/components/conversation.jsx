@@ -24,6 +24,7 @@ const messages = defineMessages({
   unmuteConversation: { id: 'status.unmute_conversation', defaultMessage: 'Unmute conversation' },
 });
 
+export default @injectIntl
 class Conversation extends ImmutablePureComponent {
 
   static contextTypes = {
@@ -144,7 +145,7 @@ class Conversation extends ImmutablePureComponent {
 
     return (
       <HotKeys handlers={handlers}>
-        <div className={classNames('conversation focusable muted', { 'conversation--unread': unread })} tabIndex={0}>
+        <div className={classNames('conversation focusable muted', { 'conversation--unread': unread })} tabIndex='0'>
           <div className='conversation__avatar' onClick={this.handleClick} role='presentation'>
             <AvatarComposite accounts={accounts} size={48} />
           </div>
@@ -197,5 +198,3 @@ class Conversation extends ImmutablePureComponent {
   }
 
 }
-
-export default injectIntl(Conversation);

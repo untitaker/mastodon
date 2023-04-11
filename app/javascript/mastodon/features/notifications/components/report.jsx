@@ -13,6 +13,7 @@ const messages = defineMessages({
   violation: { id: 'report_notification.categories.violation', defaultMessage: 'Rule violation' },
 });
 
+export default @injectIntl
 class Report extends ImmutablePureComponent {
 
   static propTypes = {
@@ -59,5 +60,3 @@ class Report extends ImmutablePureComponent {
   }
 
 }
-
-export default injectIntl(Report);

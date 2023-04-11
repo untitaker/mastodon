@@ -16,6 +16,8 @@ const mapDispatchToProps = (dispatch, { statusId }) => ({
 
 });
 
+export default @connect(null, mapDispatchToProps)
+@injectIntl
 class EditedTimestamp extends React.PureComponent {
 
   static propTypes = {
@@ -66,5 +68,3 @@ class EditedTimestamp extends React.PureComponent {
   }
 
 }
-
-export default connect(null, mapDispatchToProps)(injectIntl(EditedTimestamp));

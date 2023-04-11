@@ -120,9 +120,7 @@ RSpec.describe UpdateStatusService, type: :service do
     before do
       status.update(poll: poll)
       VoteService.new.call(voter, poll, [0])
-      Sidekiq::Testing.fake! do
-        subject.call(status, status.account_id, text: 'Foo', poll: { options: %w(Bar Baz Foo), expires_in: 5.days.to_i })
-      end
+      subject.call(status, status.account_id, text: 'Foo', poll: { options: %w(Bar Baz Foo), expires_in: 5.days.to_i })
     end
 
     it 'updates poll' do
@@ -139,11 +137,6 @@ RSpec.describe UpdateStatusService, type: :service do
 
     it 'saves edit history' do
       expect(status.edits.pluck(:poll_options)).to eq [%w(Foo Bar), %w(Bar Baz Foo)]
-    end
-
-    it 'requeues expiration notification' do
-      poll = status.poll.reload
-      expect(PollExpirationNotifyWorker).to have_enqueued_sidekiq_job(poll.id).at(poll.expires_at + 5.minutes)
     end
   end
 

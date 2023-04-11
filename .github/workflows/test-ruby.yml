@@ -32,9 +32,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Install native Ruby dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libicu-dev libidn11-dev
+        run: sudo apt-get install -y libicu-dev libidn11-dev
 
       - name: Set up bundler cache
         uses: ruby/setup-ruby@v1
@@ -42,7 +40,7 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - run: yarn --frozen-lockfile --production
+      - run: yarn install --frozen-lockfile
       - name: Precompile assets
         # Previously had set this, but it's not supported
         # export NODE_OPTIONS=--openssl-legacy-provider
@@ -120,9 +118,6 @@ jobs:
         with:
           path: './public'
           name: ${{ github.sha }}
-
-      - name: Update package index
-        run: sudo apt-get update
 
       - name: Install native Ruby dependencies
         run: sudo apt-get install -y libicu-dev libidn11-dev

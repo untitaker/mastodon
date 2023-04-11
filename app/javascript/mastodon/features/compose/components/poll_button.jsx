@@ -13,6 +13,8 @@ const iconStyle = {
   lineHeight: '27px',
 };
 
+export default
+@injectIntl
 class PollButton extends React.PureComponent {
 
   static propTypes = {
@@ -51,5 +53,3 @@ class PollButton extends React.PureComponent {
   }
 
 }
-
-export default injectIntl(PollButton);

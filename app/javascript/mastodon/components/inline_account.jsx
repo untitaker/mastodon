@@ -14,6 +14,7 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
+export default @connect(makeMapStateToProps)
 class InlineAccount extends React.PureComponent {
 
   static propTypes = {
@@ -31,5 +32,3 @@ class InlineAccount extends React.PureComponent {
   }
 
 }
-
-export default connect(makeMapStateToProps)(InlineAccount);

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 
+export default @connect()
 class PictureInPicturePlaceholder extends React.PureComponent {
 
   static propTypes = {
@@ -58,7 +59,7 @@ class PictureInPicturePlaceholder extends React.PureComponent {
     const { height } = this.state;
 
     return (
-      <div ref={this.setRef} className='picture-in-picture-placeholder' style={{ height }} role='button' tabIndex={0} onClick={this.handleClick}>
+      <div ref={this.setRef} className='picture-in-picture-placeholder' style={{ height }} role='button' tabIndex='0' onClick={this.handleClick}>
         <Icon id='window-restore' />
         <FormattedMessage id='picture_in_picture.restore' defaultMessage='Put it back' />
       </div>
@@ -66,5 +67,3 @@ class PictureInPicturePlaceholder extends React.PureComponent {
   }
 
 }
-
-export default connect()(PictureInPicturePlaceholder);

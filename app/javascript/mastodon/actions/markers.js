@@ -55,7 +55,7 @@ export const synchronouslySubmitMarkers = () => (dispatch, getState) => {
     client.open('POST', '/api/v1/markers', false);
     client.setRequestHeader('Content-Type', 'application/json');
     client.setRequestHeader('Authorization', `Bearer ${accessToken}`);
-    client.send(JSON.stringify(params));
+    client.SUBMIT(JSON.stringify(params));
   } catch (e) {
     // Do not make the BeforeUnload handler error out
   }

@@ -313,9 +313,9 @@ RSpec.describe User, type: :model do
   end
 
   describe 'settings' do
-    it 'is instance of UserSettings' do
+    it 'is instance of Settings::ScopedSettings' do
       user = Fabricate(:user)
-      expect(user.settings).to be_a UserSettings
+      expect(user.settings).to be_a Settings::ScopedSettings
     end
   end
 
@@ -376,6 +376,16 @@ RSpec.describe User, type: :model do
         user = User.new(email: 'foo@blacklisted.mastodon.space', account: account, password: password)
         expect(user.valid?).to be_falsey
       end
+    end
+  end
+
+  it_behaves_like 'Settings-extended' do
+    def create!
+      User.create!(account: Fabricate(:account, user: nil), email: 'foo@mastodon.space', password: 'abcd1234', agreement: true)
+    end
+
+    def fabricate
+      Fabricate(:user)
     end
   end
 

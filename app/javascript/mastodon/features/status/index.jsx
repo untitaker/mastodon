@@ -176,6 +176,8 @@ const titleFromStatus = status => {
   return `${prefix}: "${truncate(text, 30)}"`;
 };
 
+export default @injectIntl
+@connect(makeMapStateToProps)
 class Status extends ImmutablePureComponent {
 
   static contextTypes = {
@@ -630,7 +632,7 @@ class Status extends ImmutablePureComponent {
             {ancestors}
 
             <HotKeys handlers={handlers}>
-              <div className={classNames('focusable', 'detailed-status__wrapper', `detailed-status__wrapper-${status.get('visibility')}`)} tabIndex={0} aria-label={textForScreenReader(intl, status, false)}>
+              <div className={classNames('focusable', 'detailed-status__wrapper')} tabIndex='0' aria-label={textForScreenReader(intl, status, false)}>
                 <DetailedStatus
                   key={`details-${status.get('id')}`}
                   status={status}
@@ -682,5 +684,3 @@ class Status extends ImmutablePureComponent {
   }
 
 }
-
-export default injectIntl(connect(makeMapStateToProps)(Status));

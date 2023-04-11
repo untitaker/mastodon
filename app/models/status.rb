@@ -140,10 +140,6 @@ class Status < ApplicationRecord
 
   REAL_TIME_WINDOW = 6.hours
 
-  def cache_key
-    "v2:#{super}"
-  end
-
   def searchable_by(preloaded = nil)
     ids = []
 

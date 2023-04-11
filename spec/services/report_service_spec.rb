@@ -96,8 +96,7 @@ RSpec.describe ReportService, type: :service do
 
     before do
       ActionMailer::Base.deliveries.clear
-      source_account.user.settings['notification_emails.report'] = true
-      source_account.user.save
+      source_account.user.settings.notification_emails['report'] = true
     end
 
     it 'does not send an e-mail' do

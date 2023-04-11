@@ -46,7 +46,6 @@ describe Api::V1::Accounts::CredentialsController do
         end
 
         it 'updates account info' do
-          user.reload
           user.account.reload
 
           expect(user.account.display_name).to eq("Alice Isn't Dead")

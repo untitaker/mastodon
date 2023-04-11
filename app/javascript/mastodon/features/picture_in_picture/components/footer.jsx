@@ -37,6 +37,8 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
+export default @connect(makeMapStateToProps)
+@injectIntl
 class Footer extends ImmutablePureComponent {
 
   static contextTypes = {
@@ -188,5 +190,3 @@ class Footer extends ImmutablePureComponent {
   }
 
 }
-
-export default connect(makeMapStateToProps)(injectIntl(Footer));

@@ -15,6 +15,8 @@ const mapStateToProps = state => ({
   count: state.getIn(['user_lists', 'follow_requests', 'items'], ImmutableList()).size,
 });
 
+export default @injectIntl
+@connect(mapStateToProps)
 class FollowRequestsColumnLink extends React.Component {
 
   static propTypes = {
@@ -47,5 +49,3 @@ class FollowRequestsColumnLink extends React.Component {
   }
 
 }
-
-export default injectIntl(connect(mapStateToProps)(FollowRequestsColumnLink));

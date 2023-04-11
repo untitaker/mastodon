@@ -19,6 +19,8 @@ const mapDispatchToProps = dispatch => ({
   onSubmit: () => dispatch(submitListEditor(false)),
 });
 
+export default @connect(mapStateToProps, mapDispatchToProps)
+@injectIntl
 class ListForm extends React.PureComponent {
 
   static propTypes = {
@@ -66,5 +68,3 @@ class ListForm extends React.PureComponent {
   }
 
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(ListForm));

@@ -5,9 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Link } from 'react-router-dom';
-// @ts-expect-error
 import ShortNumber from 'mastodon/components/short_number';
-// @ts-expect-error
 import Skeleton from 'mastodon/components/skeleton';
 import classNames from 'classnames';
 
@@ -21,11 +19,11 @@ class SilentErrorBoundary extends React.Component {
     error: false,
   };
 
-  componentDidCatch() {
+  componentDidCatch () {
     this.setState({ error: true });
   }
 
-  render() {
+  render () {
     if (this.state.error) {
       return null;
     }
@@ -52,13 +50,11 @@ export const accountsCountRenderer = (displayNumber, pluralReady) => (
   />
 );
 
-// @ts-expect-error
 export const ImmutableHashtag = ({ hashtag }) => (
   <Hashtag
     name={hashtag.get('name')}
     to={`/tags/${hashtag.get('name')}`}
     people={hashtag.getIn(['history', 0, 'accounts']) * 1 + hashtag.getIn(['history', 1, 'accounts']) * 1}
-    // @ts-expect-error
     history={hashtag.get('history').reverse().map((day) => day.get('uses')).toArray()}
   />
 );
@@ -67,7 +63,6 @@ ImmutableHashtag.propTypes = {
   hashtag: ImmutablePropTypes.map.isRequired,
 };
 
-// @ts-expect-error
 const Hashtag = ({ name, to, people, uses, history, className, description, withGraph }) => (
   <div className={classNames('trends__item', className)}>
     <div className='trends__item__name'>

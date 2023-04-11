@@ -117,12 +117,11 @@ function main() {
       const datetime = new Date(content.getAttribute('datetime'));
       const now      = new Date();
 
-      const timeGiven = content.getAttribute('datetime').includes('T');
-      content.title = timeGiven ? dateTimeFormat.format(datetime) : dateFormat.format(datetime);
+      content.title = dateTimeFormat.format(datetime);
       content.textContent = timeAgoString({
         formatMessage: ({ id, defaultMessage }, values) => (new IntlMessageFormat(messages[id] || defaultMessage, locale)).format(values),
         formatDate: (date, options) => (new Intl.DateTimeFormat(locale, options)).format(date),
-      }, datetime, now, now.getFullYear(), timeGiven);
+      }, datetime, now, now.getFullYear(), content.getAttribute('datetime').includes('T'));
     });
 
     const reactComponents = document.querySelectorAll('[data-component]');
@@ -292,10 +291,10 @@ function main() {
 
     if (sidebar.classList.contains('visible')) {
       document.body.style.overflow = null;
-      toggleButton.setAttribute('aria-expanded', 'false');
+      toggleButton.setAttribute('aria-expanded', false);
     } else {
       document.body.style.overflow = 'hidden';
-      toggleButton.setAttribute('aria-expanded', 'true');
+      toggleButton.setAttribute('aria-expanded', true);
     }
 
     toggleButton.classList.toggle('active');

@@ -13,14 +13,13 @@ module.exports = (api) => {
 
   const config = {
     presets: [
-      '@babel/preset-typescript',
       ['@babel/react', reactOptions],
       ['@babel/env', envOptions],
     ],
     plugins: [
+      ['@babel/proposal-decorators', { legacy: true }],
       ['react-intl', { messagesDir: './build/messages' }],
       'preval',
-      '@babel/plugin-proposal-nullish-coalescing-operator',
     ],
     overrides: [
       {
@@ -68,3 +67,4 @@ module.exports = (api) => {
 
   return config;
 };
+

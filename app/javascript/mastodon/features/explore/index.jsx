@@ -24,6 +24,8 @@ const mapStateToProps = state => ({
   isSearching: state.getIn(['search', 'submitted']) || !showTrends,
 });
 
+export default @connect(mapStateToProps)
+@injectIntl
 class Explore extends React.PureComponent {
 
   static contextTypes = {
@@ -88,9 +90,7 @@ class Explore extends React.PureComponent {
                 <Route path='/explore/tags' component={Tags} />
                 <Route path='/explore/links' component={Links} />
                 <Route path='/explore/suggestions' component={Suggestions} />
-                <Route exact path={['/explore', '/explore/posts', '/search']}>
-                  <Statuses multiColumn={multiColumn} />
-                </Route>
+                <Route exact path={['/explore', '/explore/posts', '/search']} component={Statuses} componentParams={{ multiColumn }} />
               </Switch>
 
               <Helmet>
@@ -105,5 +105,3 @@ class Explore extends React.PureComponent {
   }
 
 }
-
-export default connect(mapStateToProps)(injectIntl(Explore));
