@@ -48,6 +48,7 @@ jobs:
             type=pep440,pattern={{raw}}
             type=pep440,pattern=v{{major}}.{{minor}}
             type=ref,event=pr
+            type=sha
 
       - name: Generate version suffix
         id: version_vars
